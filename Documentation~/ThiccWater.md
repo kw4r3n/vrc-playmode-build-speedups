@@ -6,7 +6,7 @@
 
 ThiccWater(PleasureArcade、確認したバージョン 2.0)は有料アセットのため、修正済みのコードはここに含めていません。以下の手順で、各自のプロジェクトのファイルを直してください。修正前に、プロジェクトのバックアップかgitのコミットを取ってください。
 
-ThiccWaterはビルドのたびに、アセットの保存と再インポートをエミッターやクリップごとに繰り返しています。保存とインポートは最後に1回で十分です。
+ThiccWaterはビルドのたびに、アセットの保存と再インポートをエミッターやクリップごとに繰り返しています。保存とインポートは最後に1回で十分です。どの修正も、プレイモードとアップロードの両方のビルドで効きます。
 
 | 修正 | 対象ファイル | 効果(実測) |
 | --- | --- | --- |
@@ -100,7 +100,7 @@ ThiccWaterはビルドのたびに、アセットの保存と再インポート�
 
 ThiccWater (PleasureArcade, tested with version 2.0) is a paid asset, so no patched code is included here. Follow these steps to change the files in your own project. Back up the project or commit to git first.
 
-On every build, ThiccWater saves and reimports assets once per emitter or clip. Saving and importing once at the end is enough.
+On every build, ThiccWater saves and reimports assets once per emitter or clip. Saving and importing once at the end is enough. Every change applies to both play-mode and upload builds.
 
 | Change | Files | Measured effect |
 | --- | --- | --- |
