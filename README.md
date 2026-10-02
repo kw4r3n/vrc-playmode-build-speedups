@@ -77,6 +77,10 @@ VRChatとGesture ManagerはルートのAnimatorのコントローラーを使い
 
 Unity 2022.3.22f1、VRChat SDK 3.10.5、NDMF 1.14.8、Modular Avatar 1.18.7、VRCFury 1.1430.0
 
+### AIの利用
+
+原因の調査、コード、このREADMEの作成には AI(Anthropic の Claude Code)を使っています。計測と動作確認は「確認した環境」に書いた環境で、実際に行っています。
+
 ## English
 
 Editor tools that shorten the build when entering play mode for VRChat avatars that use NDMF, VRCFury and AAO. All of them change only the avatar copy made for the build, never the original prefab or scene.
@@ -151,3 +155,7 @@ For a fair comparison, alternate the settings (A, B, B, A) and measure several t
 ### Tested with
 
 Unity 2022.3.22f1, VRChat SDK 3.10.5, NDMF 1.14.8, Modular Avatar 1.18.7, VRCFury 1.1430.0
+
+### Use of AI
+
+The investigation, the code, and this README were made with AI (Anthropic's Claude Code). Measurements and testing were done for real on the environment listed under "Tested with".
