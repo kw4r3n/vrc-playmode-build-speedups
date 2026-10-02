@@ -45,6 +45,24 @@ ThiccWaterはビルドのたびに、アセットの保存と再インポート�
 
 `OnPreprocessAvatar` の最後の `AssetDatabase.SaveAssets();` は残します。
 
+ThiccWaterは、Expression Parametersとメニューを `SetDirty` せずに書き換えています。途中の保存を消しただけだと、これらは最後の `SaveAssets` で保存されません。その結果、アップロードしたアバターから `ThiccWater_*` パラメータとメニュー項目が抜け、VRChat内でトグルが動きません(エディタのプレイモードでは動いて見えます)。最後の `AssetDatabase.SaveAssets();` を次のように置き換え、`MarkMenusDirty` メソッドを `ThiccWaterCompiler` に足してください。
+
+```csharp
+// Params and menus are edited in place without SetDirty, so the single save below would skip them
+EditorUtility.SetDirty(_avatar.expressionParameters);
+MarkMenusDirty(_avatar.expressionsMenu, new HashSet<VRCExpressionsMenu>());
+AssetDatabase.SaveAssets();
+```
+
+```csharp
+private static void MarkMenusDirty(VRCExpressionsMenu menu, HashSet<VRCExpressionsMenu> visited)
+{
+    if (menu == null || !visited.Add(menu)) return;
+    EditorUtility.SetDirty(menu);
+    foreach (var control in menu.controls) MarkMenusDirty(control.subMenu, visited);
+}
+```
+
 ### 3. 生成アセットのインポートをまとめる
 
 エミッターの生成処理全体を `AssetDatabase.StartAssetEditing()` と `StopAssetEditing()` で囲み、生成したクリップ・メニュー・マテリアルを1回でインポートします。修正2を先に済ませてください。
@@ -75,6 +93,9 @@ ThiccWaterはビルドのたびに、アセットの保存と再インポート�
     }
     if (!built) return false;
 
+    // Params and menus are edited in place without SetDirty, so the single save below would skip them
+    EditorUtility.SetDirty(_avatar.expressionParameters);
+    MarkMenusDirty(_avatar.expressionsMenu, new HashSet<VRCExpressionsMenu>());
     AssetDatabase.SaveAssets();
 
     return true;
@@ -94,6 +115,7 @@ ThiccWaterはビルドのたびに、アセットの保存と再インポート�
 
 - 修正の前後で、プレイモード中のアバターのFXレイヤー数・パラメータ数・Expression Parametersのコストが同じであること。
 - `Assets/PleasureArcade/ThiccWater/GeneratedAssets/` に、修正前と同じ数の `.anim` と `.asset` が作られること。
+- `GeneratedAssets/TWMenu-*.asset` をテキストで開き、`controls:` が空でなく `ThiccWater_*` の項目が入っていること。プレイモードでは保存漏れが見えないため、ディスク上のファイルで確認します。
 - コンソールにエラーが出ないこと。
 
 ## English
@@ -139,6 +161,24 @@ Delete these lines:
 
 Keep the final `AssetDatabase.SaveAssets();` in `OnPreprocessAvatar`.
 
+ThiccWater edits the Expression Parameters and menus without calling `SetDirty`. With the saves in between gone, the final `SaveAssets` skips them, so the uploaded avatar loses the `ThiccWater_*` parameters and menu controls and the toggles do nothing in VRChat (they still appear to work in editor play mode). Replace the final `AssetDatabase.SaveAssets();` with the following, and add the `MarkMenusDirty` method to `ThiccWaterCompiler`:
+
+```csharp
+// Params and menus are edited in place without SetDirty, so the single save below would skip them
+EditorUtility.SetDirty(_avatar.expressionParameters);
+MarkMenusDirty(_avatar.expressionsMenu, new HashSet<VRCExpressionsMenu>());
+AssetDatabase.SaveAssets();
+```
+
+```csharp
+private static void MarkMenusDirty(VRCExpressionsMenu menu, HashSet<VRCExpressionsMenu> visited)
+{
+    if (menu == null || !visited.Add(menu)) return;
+    EditorUtility.SetDirty(menu);
+    foreach (var control in menu.controls) MarkMenusDirty(control.subMenu, visited);
+}
+```
+
 ### 3. Batch the generated assets into one import
 
 Wrap the whole emitter build in `AssetDatabase.StartAssetEditing()` and `StopAssetEditing()` so the generated clips, menus and materials import once. Do change 2 first.
@@ -169,6 +209,9 @@ While the batch is open, newly created assets cannot be loaded back with `LoadAs
     }
     if (!built) return false;
 
+    // Params and menus are edited in place without SetDirty, so the single save below would skip them
+    EditorUtility.SetDirty(_avatar.expressionParameters);
+    MarkMenusDirty(_avatar.expressionsMenu, new HashSet<VRCExpressionsMenu>());
     AssetDatabase.SaveAssets();
 
     return true;
@@ -188,4 +231,5 @@ If an exception leaves a `StartAssetEditing` batch open, asset imports stay stop
 
 - The avatar in play mode has the same FX layer count, parameter count and Expression Parameters cost before and after the change.
 - `Assets/PleasureArcade/ThiccWater/GeneratedAssets/` gets the same number of `.anim` and `.asset` files as before.
+- Open `GeneratedAssets/TWMenu-*.asset` as text: `controls:` is not empty and lists the `ThiccWater_*` toggles. Play mode cannot show a missed save, so check the file on disk.
 - No errors in the console.
