@@ -15,6 +15,23 @@ NDMF・VRCFury・AAOを使ったVRChatアバターで、プレイモード突入
 
 効果は、VRCFury・GoGoLoco・AAOを使ったアバター1体での実測です。
 
+### 効果が出る条件
+
+NDMFは、Modular AvatarやAAOなどが使っている基盤です。アバターにNDMFとVRCFuryのどちらが入っているかで、効果が変わります。
+
+| ツール | NDMFだけ | VRCFuryだけ | 両方 |
+| --- | --- | --- | --- |
+| Skip Optimizers In Play Mode | ○ ※1 | — | ○ ※1 |
+| Skip NDMF Optimizing In Play Mode | △ ※2 | — | ○ |
+| Clear Root Animator Controller On Build | ○ ※3 | — | ○(効果大) |
+| Log Play Mode Build Time | ○ | ○ | ○ |
+
+- ※1 AAOのTrace and OptimizeかAvatar Compressorを使っている場合だけ効きます。
+- ※2 主に省けるのは、VRCFuryが作り直したコントローラーの複製です。NDMFだけのアバターでは、効果は小さいと見込んでいます(未計測)。
+- ※3 ルートのAnimatorにコントローラーが設定されている場合だけ効きます。VRCFuryがあると、そこにVRCFuryの生成したFXが入るので、効果が大きくなります。
+
+VRCFuryだけのアバターでは、計測ツール以外は何もしません。
+
 ### 導入
 
 [Releases](https://github.com/kw4r3n/vrc-playmode-build-speedups/releases/latest) から `.unitypackage` をダウンロードし、Unityで開いたプロジェクトにインポートしてください。`Assets/Kw4r3n/VRCPlayModeBuildSpeedups/` に入ります。外すときは、このフォルダを削除してください。
@@ -89,6 +106,23 @@ Editor tools that shorten the build when entering play mode for VRChat avatars t
 | Log Play Mode Build Time (bonus) | Logs the play-mode entry time with a breakdown for NDMF, VRCFury and the rest | — |
 
 Effects were measured on one avatar that uses VRCFury, GoGoLoco and AAO.
+
+### When each tool helps
+
+NDMF is the framework under Modular Avatar, AAO and others. The effect depends on whether the avatar uses NDMF, VRCFury, or both.
+
+| Tool | NDMF only | VRCFury only | Both |
+| --- | --- | --- | --- |
+| Skip Optimizers In Play Mode | Yes *1 | — | Yes *1 |
+| Skip NDMF Optimizing In Play Mode | Small *2 | — | Yes |
+| Clear Root Animator Controller On Build | Yes *3 | — | Yes (larger) |
+| Log Play Mode Build Time | Yes | Yes | Yes |
+
+- *1 Only when the avatar uses AAO Trace and Optimize or Avatar Compressor.
+- *2 What it mainly saves is cloning the controllers VRCFury rebuilt again. On an NDMF-only avatar the gain is expected to be small (not measured).
+- *3 Only when the root Animator has a controller. With VRCFury, that controller becomes VRCFury's generated FX, so the gain is larger.
+
+On a VRCFury-only avatar, everything except the timer does nothing.
 
 ### Install
 

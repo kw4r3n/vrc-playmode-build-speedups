@@ -51,8 +51,12 @@ namespace VrcPlayModeBuildSpeedups
             }
 
             var holderType = Type.GetType("nadena.dev.ndmf.VRChat.ContextHolder, nadena.dev.ndmf.vrchat");
+            // NDMF isn't installed (a VRCFury-only project), so there is no NDMF build to end.
+            if (holderType == null && !AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == "nadena.dev.ndmf")) return true;
             var contextField = holderType?.GetField("context", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             var holder = holderType != null ? avatarGameObject.GetComponent(holderType) : null;
+            // NDMF didn't start a build on this avatar (Apply On Play is off, for one).
+            if (holderType != null && holder == null) return true;
             var context = holder != null ? contextField?.GetValue(holder) : null;
             var finish = context?.GetType().GetMethod("Finish", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             var successful = context?.GetType().GetProperty("Successful");
