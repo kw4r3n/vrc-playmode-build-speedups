@@ -1,0 +1,16 @@
+{
+  "name": "io.github.kw4r3n.vrc-playmode-build-speedups",
+  "displayName": "VRC Play Mode Build Speedups",
+  "version": "1.0.0",
+  "unity": "2022.3",
+  "description": "Editor tools that shorten VRChat avatar builds when entering play mode with NDMF and VRCFury.",
+  "author": {
+    "name": "kw4r3n"
+  },
+  "license": "MIT",
+  "vpmDependencies": {
+    "com.vrchat.avatars": ">=3.5.0"
+  },
+  "legacyFolders": {},
+  "legacyFiles": {}
+}
