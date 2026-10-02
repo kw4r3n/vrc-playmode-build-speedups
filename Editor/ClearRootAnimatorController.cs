@@ -11,7 +11,7 @@ namespace VrcPlayModeBuildSpeedups
     public class ClearRootAnimatorController : IVRCSDKPreprocessAvatarCallback
     {
         private const string PrefKey = "VrcPlayModeBuildSpeedups.ClearRootAnimatorController";
-        private const string MenuPath = "Tools/Clear Root Animator Controller On Build";
+        private const string MenuPath = "Tools/Kw4r3n/VRC Play Mode Build Speedups/Clear Root Animator Controller On Build";
 
         private static bool Enabled
         {

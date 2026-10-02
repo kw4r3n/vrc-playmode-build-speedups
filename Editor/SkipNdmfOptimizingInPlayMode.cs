@@ -17,7 +17,7 @@ namespace VrcPlayModeBuildSpeedups
     public class SkipNdmfOptimizingInPlayMode : IVRCSDKPreprocessAvatarCallback
     {
         private const string PrefKey = "VrcPlayModeBuildSpeedups.SkipNdmfOptimizingInPlayMode";
-        private const string MenuPath = "Tools/Skip NDMF Optimizing In Play Mode";
+        private const string MenuPath = "Tools/Kw4r3n/VRC Play Mode Build Speedups/Skip NDMF Optimizing In Play Mode";
 
         // Plugins with optimizing-phase passes that act on their own components.
         private static readonly string[] OptimizingPluginNamespaces =
