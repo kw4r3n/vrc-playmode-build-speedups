@@ -17,11 +17,7 @@ NDMF・VRCFury・AAOを使ったVRChatアバターで、プレイモード突入
 
 ### 導入
 
-このリポジトリを、Unityプロジェクトの `Packages/io.github.kw4r3n.vrc-playmode-build-speedups` に置いてください(VPMリスティングは未公開)。
-
-```bash
-git clone https://github.com/kw4r3n/vrc-playmode-build-speedups Packages/io.github.kw4r3n.vrc-playmode-build-speedups
-```
+[Releases](https://github.com/kw4r3n/vrc-playmode-build-speedups/releases/latest) から `.unitypackage` をダウンロードし、Unityで開いたプロジェクトにインポートしてください。`Assets/Kw4r3n/VRCPlayModeBuildSpeedups/` に入ります。外すときは、このフォルダを削除してください。
 
 計測ツール以外は、導入した時点で有効になります。`Tools > Kw4r3n > VRC Play Mode Build Speedups` の各項目で個別にオン・オフできます。計測ツールは初期状態でオフです。
 
@@ -96,11 +92,7 @@ Effects were measured on one avatar that uses VRCFury, GoGoLoco and AAO.
 
 ### Install
 
-Put this repository in your Unity project at `Packages/io.github.kw4r3n.vrc-playmode-build-speedups` (there is no VPM listing yet).
-
-```bash
-git clone https://github.com/kw4r3n/vrc-playmode-build-speedups Packages/io.github.kw4r3n.vrc-playmode-build-speedups
-```
+Download the `.unitypackage` from [Releases](https://github.com/kw4r3n/vrc-playmode-build-speedups/releases/latest) and import it into your project in Unity. It goes to `Assets/Kw4r3n/VRCPlayModeBuildSpeedups/`. To remove it, delete that folder.
 
 Everything except the timer is on once installed. Turn each on or off from `Tools > Kw4r3n > VRC Play Mode Build Speedups`. The timer starts off.
 
